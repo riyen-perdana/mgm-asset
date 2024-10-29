@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('client', function (Blueprint $table) {
             $table->id();
+            $table->enum('client_jns',['mahasiswa','pegawai','ormawa','umum','universitas'])->comment('Jenis Client Mahasiswa, Pegawai, dll');
             $table->string('client_id')->unique()->comment('Tanda Pengenal Mahasiswa, Pegawai, dll');
             $table->string('client_nm')->comment('Nama Mahasiswa, Pegawai, dll');
             $table->enum('client_jk', ['L', 'P'])->comment('Jenis Kelamin Mahasiswa, Pegawai, dll');
