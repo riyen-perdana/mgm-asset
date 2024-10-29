@@ -14,11 +14,9 @@ class CreateAsset extends CreateRecord
     protected function getCreatedNotification(): ?Notification
     {
         return Notification::make()
-            //->success()
+            ->success()
             ->title('Sukses')
-            ->body('Asset Berhasil Ditambahkan')
-            ->actions([
-                Actions\CloseAction::make(),
-            ]);
+            ->body('Asset Telah Ditambahkan')
+            ->send();
     }
 }
