@@ -17,5 +17,4 @@ class EditAsset extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
-
 }

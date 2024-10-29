@@ -43,7 +43,7 @@ class ClientResource extends Resource
                             ->searchable()
                             ->required()
                             ->validationMessages([
-                                'required' => 'Jenis Pengguna Harus Dipilih',
+                                'required' => 'Kolom Jenis Pengguna Harus Dipilih',
                             ])
                             ->placeholder('Jenis Pengguna'),
 
@@ -52,15 +52,15 @@ class ClientResource extends Resource
                             ->required()
                             ->unique('client', 'client_id',ignoreRecord: true)
                             ->validationMessages([
-                                'required' => 'Tanda Pengenal Harus Diisi',
+                                'required' => 'Kolom Tanda Pengenal Harus Diisi',
                             ])
-                            ->placeholder('NIM, NIP, KTP'),
+                            ->placeholder('Isikan NIM, NIP, NIK atau KTP'),
 
                         TextInput::make('client_nm')
                             ->label('Nama Pengguna')
                             ->required()
                             ->validationMessages([
-                                'required' => 'Nama Pengguna Harus Diisi',
+                                'required' => 'Kolom Nama Pengguna Harus Diisi',
                             ])
                             ->placeholder('Nama Pengguna'),
 
@@ -70,20 +70,20 @@ class ClientResource extends Resource
                                 'L' => 'Laki-Laki',
                                 'P' => 'Perempuan',
                             ])
+                            ->native(false)
+                            ->searchable()
                             ->required()
                             ->validationMessages([
-                                'required' => 'Jenis Kelamin Harus Dipilih',
+                                'required' => 'Kolom Jenis Kelamin Harus Dipilih',
                             ])
-                            ->placeholder('Jenis Kelamin')
-                            ->native(false)
-                            ->searchable(),
+                            ->placeholder('Jenis Pengguna'),
 
                         TextInput::make('client_alamat')
                             ->label('Alamat')
                             ->required()
                             ->columnSpan(2)
                             ->validationMessages([
-                                'required' => 'Alamat Harus Diisi',
+                                'required' => 'Kolom Alamat Harus Diisi',
                             ])
                             ->placeholder('Alamat'),
 
@@ -92,8 +92,8 @@ class ClientResource extends Resource
                             ->email()
                             ->required()
                             ->validationMessages([
-                                'required' => 'Email Harus Diisi',
-                                'email' => 'Email Tidak Valid, Ulangi',
+                                'required' => 'Kolom Email Harus Diisi',
+                                'email' => 'Kolom Email Tidak Valid, Ulangi',
                             ])
                             ->placeholder('Email'),
 
@@ -102,8 +102,8 @@ class ClientResource extends Resource
                             ->tel()
                             ->required()
                             ->validationMessages([
-                                'required' => 'Nomor Telepon Harus Diisi',
-                                'tel' => 'Nomor Telepon Tidak Valid, Ulangi',
+                                'required' => 'Kolom Nomor Telepon Harus Diisi',
+                                'tel' => 'Kolom Nomor Telepon Tidak Valid, Ulangi',
                             ])
                             ->placeholder('Nomor Telepon'),
                     ])

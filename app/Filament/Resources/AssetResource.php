@@ -16,6 +16,7 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Set;
+use Filament\Support\Enums\Alignment;
 use Filament\Tables\View\TablesRenderHook;
 use Illuminate\Support\Str;
 
@@ -55,8 +56,8 @@ class AssetResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('asset_kd')->label('Kode Asset')->width('15%'),
-                Tables\Columns\TextColumn::make('asset_nm')->label('Nama Asset')->grow(true),
+                Tables\Columns\TextColumn::make('asset_kd')->label('Kode Asset')->width('15%')->searchable()->toggleable()->alignment(Alignment::Start),
+                Tables\Columns\TextColumn::make('asset_nm')->label('Nama Asset')->grow(true)->searchable()->toggleable(),
             ])
             ->filters([
                 //
