@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Tabs\Tab;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Set;
 use Filament\Tables\View\TablesRenderHook;
@@ -26,6 +27,10 @@ class AssetResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationGroup = 'Master Data';
+
+    protected static ?string $navigationLabel = 'Manajemen Asset';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -35,18 +40,35 @@ class AssetResource extends Resource
                     ->schema([
                         TextInput::make('asset_kd')
                             ->required()
-                            ->unique('asset', 'asset_kd',ignoreRecord: true)
-                            ->label('Kode Asset'),
+                            ->unique('asset', 'asset_kd', ignoreRecord: true)
+                            ->label('Kode Asset')
+                            ->validationMessages([
+                                'unique' => 'Kode Asset sudah ada, Isikan yang Lain',
+                                'required' => 'Kolom Kode Asset Harus Diisi'
+                            ]),
                         TextInput::make('asset_nm')
                             ->required()
                             ->label('Nama Asset')
                             ->live(onBlur: true)
-                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('asset_slug', Str::slug($state))),
+                            ->afterStateUpdated(fn(Set $set, ?string $state) => $set('asset_slug', Str::slug($state)))
+                            ->validationMessages([
+                                'required' => 'Kolom Nama Asset Harus Diisi'
+                            ]),
                         TextInput::make('asset_slug')
                             ->label('Slug')
                             ->required()
                             ->extraInputAttributes(['readonly' => true])
                             ->columnSpan(2)
+                            ->validationMessages([
+                                'required' => 'Kolom Nama Asset Harus Diisi'
+                            ]),
+                        Textarea::make('asset_alamat')
+                            ->label('Alamat Asset')
+                            ->columnSpan(2)
+                            ->required()
+                            ->validationMessages([
+                                'required' => 'Kolom Alamat Asset Harus Diisi'
+                            ]),
                     ])
             ]);
     }
@@ -55,8 +77,17 @@ class AssetResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('asset_kd')->label('Kode Asset')->width('15%'),
-                Tables\Columns\TextColumn::make('asset_nm')->label('Nama Asset')->grow(true),
+                Tables\Columns\TextColumn::make('asset_kd')
+                    ->label('Kode Asset')
+                    ->width('15%')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('asset_nm')
+                    ->label('Nama Asset')
+                    ->grow(true)
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('asset_alamat')->label('Alamat Asset')->grow(true)->toggleable(),
             ])
             ->filters([
                 //

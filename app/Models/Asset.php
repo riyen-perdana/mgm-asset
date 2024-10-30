@@ -11,5 +11,6 @@ class Asset extends Model
         'asset_kd',
         'asset_nm',
         'asset_slug',
+        'asset_alamat'
     ];
 }
