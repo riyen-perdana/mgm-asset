@@ -169,8 +169,15 @@ class ClientResource extends Resource
                     ]),
             ])
             ->filters([
-
-                ])
+                SelectFilter::make('client_jns')
+                    ->label('Jenis Relasi')
+                    ->options([
+                        'mahasiswa' => 'Mahasiswa',
+                        'tendik' => 'Tenaga Kependidikan',
+                        'dosen' => 'Dosen',
+                        'umum' => 'Umum',
+                    ])
+            ])
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),

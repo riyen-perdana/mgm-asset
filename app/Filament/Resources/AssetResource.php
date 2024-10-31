@@ -18,9 +18,10 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Set;
 use Filament\Support\Enums\Alignment;
+use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\View\TablesRenderHook;
 use Illuminate\Support\Str;
-
+use stdClass;
 
 class AssetResource extends Resource
 {
@@ -78,6 +79,18 @@ class AssetResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('index')->state(
+                    static function (HasTable $livewire, stdClass $rowLoop): string {
+                        return (string) (
+                            $rowLoop->iteration +
+                            ($livewire->getTableRecordsPerPage() * (
+                                $livewire->getTablePage() - 1
+                            )).'.'
+                        );
+                    }
+                )
+                ->label('No.')
+                ->width('3%'),
                 Tables\Columns\TextColumn::make('asset_kd')
                     ->label('Kode Asset')
                     ->width('15%')
