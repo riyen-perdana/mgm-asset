@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\JenisKelamin;
+use App\Enums\JenisRelasi;
 use App\Filament\Resources\ClientResource\Pages;
 use App\Filament\Resources\ClientResource\RelationManagers;
 use App\Models\Client;
@@ -45,12 +47,7 @@ class ClientResource extends Resource
                     ->schema([
                         Select::make('client_jns')
                             ->label('Jenis Relasi')
-                            ->options([
-                                'mahasiswa' => 'Mahasiswa',
-                                'tendik' => 'Tenaga Kependidikan',
-                                'dosen' => 'Dosen',
-                                'umum' => 'Umum',
-                            ])
+                            ->options(JenisRelasi::class)
                             ->searchable()
                             ->required()
                             ->validationMessages([
@@ -73,10 +70,7 @@ class ClientResource extends Resource
                             ->placeholder('Jenis Pengguna'),
                         Select::make('client_jk')
                             ->label('Jenis Kelamin')
-                            ->options([
-                                'L' => 'Laki-Laki',
-                                'P' => 'Perempuan',
-                            ])
+                            ->options(JenisKelamin::class)
                             ->searchable()
                             ->required()
                             ->validationMessages([
@@ -157,26 +151,13 @@ class ClientResource extends Resource
                     ->label('Jenis Relasi')
                     ->searchable()
                     ->sortable()
+                    ->badge()
+                    ->color(fn ($state) => $state->getColor()),
             ])
             ->filters([
                 SelectFilter::make('client_jns')
                     ->label('Jenis Relasi')
-                    ->options([
-                        'mahasiswa' => 'Mahasiswa',
-                        'tendik' => 'Tenaga Kependidikan',
-                        'dosen' => 'Dosen',
-                        'umum' => 'Umum',
-                    ]),
-            ])
-            ->filters([
-                SelectFilter::make('client_jns')
-                    ->label('Jenis Relasi')
-                    ->options([
-                        'mahasiswa' => 'Mahasiswa',
-                        'tendik' => 'Tenaga Kependidikan',
-                        'dosen' => 'Dosen',
-                        'umum' => 'Umum',
-                    ])
+                    ->options(JenisRelasi::class),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
