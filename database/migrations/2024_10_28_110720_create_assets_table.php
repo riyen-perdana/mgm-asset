@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string('asset_kd')->unique()->comment('Kode Asset UIN SUSKA Riau');
             $table->string('asset_nm')->comment('Nama Asset UIN SUSKA Riau');
             $table->string('asset_slug')->comment('Slug Asset UIN SUSKA Riau');
+            $table->text('asset_almt')->comment('Alamat Asset UIN SUSKA Riau');
+            $table->integer('asset_jml')->comment('Jumlah Asset UIN SUSKA Riau');
+            $table->bigInteger('unit_id')->unsigned()->comment('Unit Asset UIN SUSKA Riau');
             $table->timestamps();
         });
     }

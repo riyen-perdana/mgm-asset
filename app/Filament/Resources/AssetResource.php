@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\AssetResource\Pages;
 use App\Filament\Resources\AssetResource\RelationManagers;
 use App\Models\Asset;
+use App\Models\Unit;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,6 +14,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -32,6 +34,10 @@ class AssetResource extends Resource
     protected static ?string $navigationGroup = 'Master Data';
 
     protected static ?string $navigationLabel = 'Manajemen Asset';
+
+    protected static ?string $modelLabel = 'Manajemen Asset';
+
+    protected static ?string $pluralModelLabel = 'Manajemen Asset';
 
     public static function form(Form $form): Form
     {
@@ -64,13 +70,29 @@ class AssetResource extends Resource
                             ->validationMessages([
                                 'required' => 'Kolom Nama Asset Harus Diisi'
                             ]),
-                        Textarea::make('asset_alamat')
+                        Textarea::make('asset_almt')
                             ->label('Alamat Asset')
                             ->columnSpan(2)
                             ->required()
                             ->validationMessages([
                                 'required' => 'Kolom Alamat Asset Harus Diisi'
                             ]),
+                        Select::make('unit_id')
+                            ->label('Unit')
+                            ->options(Unit::all()->pluck('unit_nm', 'id'))
+                            ->required()
+                            ->searchable()
+                            ->validationMessages([
+                                'required' => 'Kolom Unit Harus Diisi'
+                            ]),
+                        TextInput::make('asset_jml')
+                            ->label('Jumlah Asset')
+                            ->required()
+                            ->numeric()
+                            ->validationMessages([
+                                'required' => 'Kolom Jumlah Asset Harus Diisi',
+                                'numeric' => 'Kolom Jumlah Asset Harus Angka'
+                            ])
                     ])
             ]);
     }
