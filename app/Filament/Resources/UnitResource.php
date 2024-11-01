@@ -30,6 +30,8 @@ class UnitResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Unit';
 
+    protected static ?string $modelLabel = 'Unit';
+
     public static function form(Form $form): Form
     {
         return $form

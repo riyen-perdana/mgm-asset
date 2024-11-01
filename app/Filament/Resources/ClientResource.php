@@ -137,6 +137,7 @@ class ClientResource extends Resource
                 Tables\Columns\TextColumn::make('client_alamat')
                     ->label('Alamat')
                     ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('client_email')
                     ->label('Email')
