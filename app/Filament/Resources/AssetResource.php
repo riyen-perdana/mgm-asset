@@ -21,6 +21,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Set;
 use Filament\Support\Enums\Alignment;
 use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\View\TablesRenderHook;
 use Illuminate\Support\Str;
 use stdClass;
@@ -120,14 +121,19 @@ class AssetResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('asset_nm')
                     ->label('Nama Asset')
-                    ->grow(true)
                     ->sortable()
+                    ->alignment(Alignment::Start)
                     ->searchable(),
-                Tables\Columns\TextColumn::make('asset_alamat')->label('Alamat Asset')->grow(true)->toggleable(),
-
+                Tables\Columns\TextColumn::make('unit.unit_nm')
+                    ->label('Unit')
+                    ->alignment(Alignment::Start)
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('asset_almt')
+                    ->label('Alamat Asset')
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('unit_id')->label('Unit')->relationship('unit', 'unit_nm'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
