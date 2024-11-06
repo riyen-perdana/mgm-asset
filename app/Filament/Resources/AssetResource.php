@@ -131,6 +131,10 @@ class AssetResource extends Resource
                 Tables\Columns\TextColumn::make('asset_almt')
                     ->label('Alamat Asset')
                     ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('asset_jml')
+                    ->label('Jumlah')
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->sortable(),
             ])
             ->filters([
                 SelectFilter::make('unit_id')->label('Unit')->relationship('unit', 'unit_nm'),

@@ -13,7 +13,10 @@ class ListUnits extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+                ->label('Buat Unit'),
+            Actions\CreateAction::make()
+                ->label('Export Excel')
         ];
     }
 }
