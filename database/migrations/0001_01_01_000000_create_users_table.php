@@ -13,8 +13,13 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('nip')->unique()->comment('Nomor Induk Pegawai');
             $table->string('name');
+            $table->string('glr_dpn')->comment('Gelar Depan')->nullable();
+            $table->string('glr_blk')->comment('Gelar Belakang')->nullable();
             $table->string('email')->unique();
+            $table->string('no_telp')->comment('Nomor Telepon')->unique();
+            $table->unsignedInteger('unit_id')->comment('Kode Unit Organisasi')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
